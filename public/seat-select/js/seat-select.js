@@ -4,6 +4,19 @@ const confirmButton = document.getElementById('confirm-button');
 
 let selection = '';
 
+const flightDropdown = async () => {
+  let flights = await fetch('/slingair/flights');
+  let data = await flights.json();
+
+  data.forEach(number => {
+    let option = document.createElement('option');
+    option.innerText = number;
+    flightInput.appendChild(option)
+    option.value = number
+  })
+}
+flightDropdown()
+
 const renderSeats = () => {
   document.querySelector('.form-container').style.display = 'block';
 

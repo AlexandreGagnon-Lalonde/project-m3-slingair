@@ -7,16 +7,10 @@ const { flights } = require('./test-data/flightSeating');
 
 const arrayOfFlights = require('./public/seat-select/js/arrayOfFlights')
 const specificFlight = require('./public/seat-select/js/specificFlight')
+const handleFlight = require('./public/seat-select/js/handleFlight')
 
 const PORT = process.env.PORT || 8000;
 
-const handleFlight = (req, res) => {
-  const { flightNumber } = req.params;
-  // get all flight numbers
-  const allFlights = Object.keys(flights);
-  // is flightNumber in the array?
-  console.log('REAL FLIGHT: ', allFlights.includes(flightNumber));
-};
 
 express()
   .use(function (req, res, next) {

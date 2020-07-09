@@ -17,7 +17,7 @@ const flightDropdown = async () => {
 } 
 flightDropdown()
 
-const renderSeats = () => {
+const renderSeats = (seatData) => {
   document.querySelector('.form-container').style.display = 'block';
 
   const alpha = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -35,25 +35,24 @@ const renderSeats = () => {
       const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`;
 
       // TODO: render the seat availability based on the data...
-      const flightInfo = async () => {
-        let response = await fetch(`/slingair/flights/${flightInput.value}`)
-        let data = await response.json();
-        console.log(data)
-
-        if (data[data.findIndex(x => x.id === seatNumber)].isAvailable) {
+      // const flightInfo = async () => {
+        // let response = await fetch(`/slingair/flights/${flightInput.value}`)
+        // let data = await response.json();
+      let currentSeat = seatData.find(x => x.id === seatNumber);
+        if (currentSeat.isAvailable) {
           seat.innerHTML = seatAvailable
         } else {
           seat.innerHTML = seatOccupied
         } 
-      }
+      // }
       
-      flightInfo()
-      // seat.innerHTML = seatAvailable
+      // flightInfo()
       row.appendChild(seat);
     }
   }
 
   let seatMap = document.forms['seats'].elements['seat'];
+
   seatMap.forEach((seat) => {
     seat.onclick = () => {
       selection = seat.value;
@@ -69,20 +68,19 @@ const renderSeats = () => {
   });
 };
 
-const toggleFormContent = (event) => {
+const toggleFormContent = async (event) => {
   const flightNumber = flightInput.value;
   console.log('toggleFormContent: ', flightNumber);
-  fetch(`/flights/${flightNumber}`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+  let response = await fetch(`/flights/${flightNumber}`);
+  let seatData = await response.json();
+
+
   // TODO: contact the server to get the seating availability
   //      - only contact the server if the flight number is this format 'SA###'.
   //      - Do I need to create an error message if the number is not valid?
 
   // TODO: Pass the response data to renderSeats to create the appropriate seat-type.
-  renderSeats();
+  renderSeats(seatData);
 };
 
 const handleConfirmSeat = (event) => {

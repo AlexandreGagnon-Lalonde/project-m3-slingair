@@ -16,3 +16,7 @@ When i am stuck I usually look at the main strategy used by other students to se
   - try to read all of comments because one of the TODO had a hint of how to do what im trying to do
   - fetch the seats in another function before the renderSeat one is called
   - dont fetch or async await in a for loop
+
+- forgot how fetch with post work so I have to revisit old workshop/project to figure it out
+  - fetch( path, object with method, data and headers for data type)
+  - make sure to send back status otherwise wont change page

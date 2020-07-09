@@ -15,6 +15,7 @@ const flightDropdown = async () => {
     option.value = number
   })
 } 
+
 flightDropdown()
 
 const renderSeats = (seatData) => {
@@ -89,13 +90,26 @@ const handleConfirmSeat = (event) => {
   fetch('/users', {
     method: 'POST',
     body: JSON.stringify({
+      flight: flightInput.value,
+      seat: selection,
       givenName: document.getElementById('givenName').value,
+      surname: document.getElementById('surname').value,
+      email: document.getElementById('email').value
     }),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  });
+  })
+  .then(res => res.json())
+  .then(data => {
+    const { status, error } = data;
+    if (status === 'success') {
+      window.location.href = '/confirmed.html';
+    } else if (error) {
+      
+    }
+  })
 };
 
 flightInput.addEventListener('blur', toggleFormContent);

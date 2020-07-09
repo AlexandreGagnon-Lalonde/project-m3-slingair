@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const { flights } = require('./test-data/flightSeating');
 
 const arrayOfFlights = require('./public/seat-select/js/arrayOfFlights')
+const specificFlight = require('./public/seat-select/js/specificFlight')
 
 const PORT = process.env.PORT || 8000;
 
@@ -35,7 +36,7 @@ express()
   // endpoints
   .get('/flights/:flightNumber', handleFlight)
   .get('/slingair/flights', arrayOfFlights) // return array of all flight number
-  // .get('slingair/flights/:flight', specificFlight) // return info from specific flight
+  .get('/slingair/flights/:flight', specificFlight) // return info from specific flight
   // .get('/slingair/users', allUsers) // return array of all users
   // .post('/slingair/users', createUser) // create new user
 

@@ -14,7 +14,7 @@ const flightDropdown = async () => {
     flightInput.appendChild(option)
     option.value = number
   })
-}
+} 
 flightDropdown()
 
 const renderSeats = () => {
@@ -35,7 +35,20 @@ const renderSeats = () => {
       const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`;
 
       // TODO: render the seat availability based on the data...
-      seat.innerHTML = seatAvailable;
+      const flightInfo = async () => {
+        let response = await fetch(`/slingair/flights/${flightInput.value}`)
+        let data = await response.json();
+        console.log(data)
+
+        if (data[data.findIndex(x => x.id === seatNumber)].isAvailable) {
+          seat.innerHTML = seatAvailable
+        } else {
+          seat.innerHTML = seatOccupied
+        } 
+      }
+      
+      flightInfo()
+      // seat.innerHTML = seatAvailable
       row.appendChild(seat);
     }
   }

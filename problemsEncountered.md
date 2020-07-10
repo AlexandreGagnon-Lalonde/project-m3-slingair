@@ -22,3 +22,8 @@ When i am stuck I usually look at the main strategy used by other students to se
   - make sure to send back status otherwise wont change page
 
 - redirect post response to ejs file
+  - change of plan considering another students solution
+  - fetch the data from specific id and render confirmed with that data
+
+- I find it really hard to organize everything together and I often find myself entangled in 
+  the logic behind everything... I can understand everything when I have the code but I have trouble starting almost every step without getting inspiration from someone...

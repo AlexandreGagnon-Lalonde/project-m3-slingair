@@ -105,7 +105,14 @@ const handleConfirmSeat = (event) => {
   .then(data => {
     const { status, error } = data;
     if (status === 'success') {
-      window.location.href = '/confirmed.html';
+      window.location = `./confirmed.html?reservationID=${data.id}`
+      // data.render('/seat-select/confirmed', {
+      //   flight: flightInput.value,
+      //   seat: selection,
+      //   givenName: document.getElementById('givenName').value,
+      //   surname: document.getElementById('surname').value,
+      //   email: document.getElementById('email').value
+      // });
     } else if (error) {
       
     }

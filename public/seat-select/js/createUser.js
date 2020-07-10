@@ -7,8 +7,8 @@ const createUser = (req, res) => {
 
   userData.id = userID;
   reservation.reservations.push(userData)
-  console.log(reservation)
-  res.status(200).send({ status: 'success'})
+
+  res.status(200).send({ status: 'success', id: userID})
 }
 
 module.exports = createUser;

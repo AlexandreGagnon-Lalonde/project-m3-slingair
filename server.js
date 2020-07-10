@@ -10,6 +10,7 @@ const specificFlight = require('./public/seat-select/js/specificFlight')
 const handleFlight = require('./public/seat-select/js/handleFlight')
 const createUser = require('./public/seat-select/js/createUser')
 const allUsers = require('./public/seat-select/js/allUsers')
+const listOfUsers = require('./public/seat-select/js/listOfUsers')
 
 const PORT = process.env.PORT || 8000;
 
@@ -33,7 +34,8 @@ express()
   .get('/flights/:flightNumber', handleFlight)
   .get('/slingair/flights', arrayOfFlights) // return array of all flight number
   .get('/slingair/flights/:flight', specificFlight) // return info from specific flight
-  .get('/users', allUsers) // return array of all users
+  .get('/:users', allUsers) // returns info of one user
+  .get('/users/all', listOfUsers) // array of all users
   .post('/users', createUser) // create new user
 
   .use((req, res) => res.send('Not Found'))

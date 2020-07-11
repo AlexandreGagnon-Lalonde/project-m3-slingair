@@ -27,3 +27,7 @@ When i am stuck I usually look at the main strategy used by other students to se
 
 - I find it really hard to organize everything together and I often find myself entangled in 
   the logic behind everything... I can understand everything when I have the code but I have trouble starting almost every step without getting inspiration from someone...
+
+- definitely need more practice starting projects by myself, other than that I am confident with my ability to understand
+  all kinds of code. I will try to double the amount of coding until the end of the bootcamp. How? First, i'll finish 
+  the udemy course that I started. I was actually at the node part of the course before this one started

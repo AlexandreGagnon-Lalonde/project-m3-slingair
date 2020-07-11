@@ -5,9 +5,10 @@ const confirmButton = document.getElementById('confirm-button');
 let selection = '';
 
 const flightDropdown = async () => {
+  // fetch flight list from this endpoint
   let flights = await fetch('/slingair/flights');
   let data = await flights.json();
-
+  // create html element for each
   data.forEach(number => {
     let option = document.createElement('option');
     option.innerText = number;
@@ -15,7 +16,6 @@ const flightDropdown = async () => {
     option.value = number
   })
 } 
-
 flightDropdown()
 
 const renderSeats = (seatData) => {
@@ -36,18 +36,13 @@ const renderSeats = (seatData) => {
       const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`;
 
       // TODO: render the seat availability based on the data...
-      // const flightInfo = async () => {
-        // let response = await fetch(`/slingair/flights/${flightInput.value}`)
-        // let data = await response.json();
+      // seatData is passed from toggleFormContent
       let currentSeat = seatData.find(x => x.id === seatNumber);
         if (currentSeat.isAvailable) {
           seat.innerHTML = seatAvailable
         } else {
           seat.innerHTML = seatOccupied
         } 
-      // }
-      
-      // flightInfo()
       row.appendChild(seat);
     }
   }
@@ -70,10 +65,18 @@ const renderSeats = (seatData) => {
 };
 
 const toggleFormContent = async (event) => {
+  let seatData;
   const flightNumber = flightInput.value;
   console.log('toggleFormContent: ', flightNumber);
-  let response = await fetch(`/flights/${flightNumber}`);
-  let seatData = await response.json();
+  // fetch the data for a specific flight
+  if (flightNumber.substring(0, 2) === 'SA' && flightNumber.length === 5) {
+    try {
+      let response = await fetch(`/slingair/flights/${flightNumber}`);
+      seatData = await response.json();
+    } catch(err) {
+      alert('Not a valid flight number.')
+    }
+  }
 
 
   // TODO: contact the server to get the seating availability
@@ -106,6 +109,12 @@ const handleConfirmSeat = (event) => {
     const { status, error } = data;
     if (status === 'success') {
       window.location = `./confirmed.html?reservationID=${data.id}`
+
+      ////// I do not know how to make this render work so 
+      ////// I looked up how some other student did this
+      ////// I would've worked with EJS but the final render was a complete
+      ////// mystery to me :) hoefully someone reads this but probably not
+
       // data.render('/seat-select/confirmed', {
       //   flight: flightInput.value,
       //   seat: selection,
@@ -113,8 +122,9 @@ const handleConfirmSeat = (event) => {
       //   surname: document.getElementById('surname').value,
       //   email: document.getElementById('email').value
       // });
+
     } else if (error) {
-      
+      alert('ID not valid.')
     }
   })
 };

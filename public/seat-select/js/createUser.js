@@ -3,24 +3,19 @@ const reservation = require('../../../test-data/reservations')
 const flights = require('../../../test-data/flightSeating')
 
 const createUser = (req, res) => {
+  // access the data of the user from the fetch in HandleConfirmSeat with req.body
   const userData = req.body;
+  // create unique ID with the package
   const userID = uuidv4();
-
-console.log('USERDATA', userData.flight)
-console.log('FLIGHTS.FLIGHTS', flights)
+  // find the index of the seat
   let flightSeat = flights.flights[userData.flight].findIndex(x => x.id === userData.seat)
-console.log('FLIGHTSEAT', flightSeat)
-console.log('FLIGHTS.FLIGHT[USERDATA.FLIGHT]', flights.flights[userData.flight])
-console.log('FLIGHTS.FLIGHT[USERDATA.FLIGHT][9]', flights.flights[userData.flight][flightSeat])
-console.log('FLIGHTS.FLIGHT[USERDATA.FLIGHT][9].ISAVAILABLE', flights.flights[userData.flight][flightSeat].isAvailable)
-
+  // update the availability
   flights.flights[userData.flight][flightSeat].isAvailable = false;
-  console.log('FLIGHTS.FLIGHT[USERDATA.FLIGHT][9].ISAVAILABLE', flights.flights[userData.flight][flightSeat].isAvailable)
-
-
+  // add the newly created id to the user object
   userData.id = userID;
+  // push the user to the "user bank"
   reservation.reservations.push(userData)
-
+  // post the results back to the fetch
   res.status(200).send({ status: 'success', id: userID})
 }
 

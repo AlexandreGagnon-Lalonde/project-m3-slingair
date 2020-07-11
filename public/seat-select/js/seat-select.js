@@ -19,6 +19,13 @@ const flightDropdown = async () => {
 flightDropdown()
 
 const renderSeats = (seatData) => {
+  // clear old flight seats if user change from dropdown
+  let oldSeatElements = document.querySelector('#seats-section');
+  // oldSeatElements.innerHTML = ''
+  while (oldSeatElements.firstChild) {
+    oldSeatElements.removeChild(oldSeatElements.lastChild)
+  }
+  
   document.querySelector('.form-container').style.display = 'block';
 
   const alpha = ['A', 'B', 'C', 'D', 'E', 'F'];
